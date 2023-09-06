@@ -5,6 +5,7 @@ import { api } from "~/utils/api";
 
 export default function Home() {
   const hello = api.example.hello.useQuery({ text: "from tRPC" });
+  const newhello = api.example.protecthello.useQuery({ text: "from protected tRPC" });
 
   return (
     <>
@@ -44,6 +45,7 @@ export default function Home() {
           </div>
           <p className="text-2xl text-white">
             {hello.data ? hello.data.greeting : "Loading tRPC query..."}
+            {newhello.data ? newhello.data.greeting : "Loading tRPC query..."}
           </p>
         </div>
       </main>
