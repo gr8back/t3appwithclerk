@@ -7,15 +7,19 @@ import { authMiddleware, redirectToSignIn } from "@clerk/nextjs";
 
 
 export default authMiddleware({
-  publicRoutes: ["/", "/sign-in", "/sign-up", "/api/trpc/"],
+
   // if the user is not signed in redirect them to the sign in page.
   afterAuth(auth, req, evt) {
+    console.log("req url is " + JSON.stringify(req.url))
+    console.log("ispublicroute " + JSON.stringify(auth.isPublicRoute))
     // handle users who aren't authenticated
     if (!auth.userId && !auth.isPublicRoute) {
       console.log("not logged in back to main page")
-      return redirectToSignIn({ returnBackUrl: req.url });
+      return redirectToSignIn({ returnBackUrl: 'http://127.0.0.1:3000' });
     }
   },
+  debug: true,
+    publicRoutes: ["/", "/sign-in", "/sign-up", "/api/trpc/example.hello(.*)"],
 });
 
 export const config = {
